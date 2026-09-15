@@ -273,12 +273,12 @@
                 <div class="bg-white p-8 rounded-3xl shadow-sm border border-pink-100 flex flex-col items-center justify-center text-center relative overflow-hidden">
                     <div class="absolute -left-10 -bottom-10 text-9xl opacity-5"><i class="fa-solid fa-stopwatch"></i></div>
                     <h3 class="font-black text-pink-900 mb-6 flex items-center gap-2 text-lg z-10"><i class="fa-solid fa-clock text-pink-400"></i> Pomodoro</h3>
-                    <div id="timer-display" class="text-7xl font-black text-pink-600 tracking-tighter mb-6 font-mono z-10 bg-pink-50 px-6 py-2 rounded-3xl border-2 border-pink-100">25:00</div>
-                    <div class="flex gap-2 mb-6 z-10">
-                        <button onclick="setTimer(25, 'study')" class="px-4 py-2 bg-pink-100 hover:bg-pink-200 rounded-xl text-sm font-black text-pink-700 transition-colors">25m Study</button>
-                        <button onclick="setTimer(50, 'study')" class="px-4 py-2 bg-pink-100 hover:bg-pink-200 rounded-xl text-sm font-black text-pink-700 transition-colors">50m Study</button>
-                        <button onclick="setTimer(5, 'break')" class="px-4 py-2 bg-blue-100 hover:bg-blue-200 rounded-xl text-sm font-black text-blue-700 transition-colors">5m Break</button>
-                        <button onclick="setTimer(15, 'break')" class="px-4 py-2 bg-blue-100 hover:bg-blue-200 rounded-xl text-sm font-black text-blue-700 transition-colors">15m Break</button>
+                    <div id="timer-display" class="text-5xl lg:text-6xl font-black text-pink-600 tracking-tighter mb-6 font-mono z-10 bg-pink-50 px-4 lg:px-6 py-2 rounded-3xl border-2 border-pink-100 w-full max-w-[250px] text-center">25:00</div>
+                    <div class="flex flex-wrap justify-center gap-2 mb-6 z-10 w-full">
+                        <button onclick="setTimer(25, 'study')" class="px-3 py-2 bg-pink-100 hover:bg-pink-200 rounded-xl text-xs lg:text-sm font-black text-pink-700 transition-colors flex-1 min-w-[80px]">25m Study</button>
+                        <button onclick="setTimer(50, 'study')" class="px-3 py-2 bg-pink-100 hover:bg-pink-200 rounded-xl text-xs lg:text-sm font-black text-pink-700 transition-colors flex-1 min-w-[80px]">50m Study</button>
+                        <button onclick="setTimer(5, 'break')" class="px-3 py-2 bg-blue-100 hover:bg-blue-200 rounded-xl text-xs lg:text-sm font-black text-blue-700 transition-colors flex-1 min-w-[80px]">5m Break</button>
+                        <button onclick="setTimer(15, 'break')" class="px-3 py-2 bg-blue-100 hover:bg-blue-200 rounded-xl text-xs lg:text-sm font-black text-blue-700 transition-colors flex-1 min-w-[80px]">15m Break</button>
                     </div>
                     <div class="flex flex-col gap-3 w-full z-10">
                         <div class="flex gap-3">
@@ -1247,7 +1247,7 @@
         window.setTimer = function(mins, mode) { 
             clearInterval(timerInt); isRun = false; timeRem = mins * 60; timerMode = mode; totalSecondsPassed = 0;
             document.getElementById('timer-display').innerText = `${mins.toString().padStart(2, '0')}:00`; 
-            document.getElementById('timer-display').className = mode === 'study' ? "text-7xl font-black text-pink-600 tracking-tighter mb-6 font-mono z-10 bg-pink-50 px-6 py-2 rounded-3xl border-2 border-pink-100" : "text-7xl font-black text-blue-600 tracking-tighter mb-6 font-mono z-10 bg-blue-50 px-6 py-2 rounded-3xl border-2 border-blue-100";
+            document.getElementById('timer-display').className = mode === 'study' ? "text-5xl lg:text-6xl font-black text-pink-600 tracking-tighter mb-6 font-mono z-10 bg-pink-50 px-4 lg:px-6 py-2 rounded-3xl border-2 border-pink-100 w-full max-w-[250px] text-center" : "text-5xl lg:text-6xl font-black text-blue-600 tracking-tighter mb-6 font-mono z-10 bg-blue-50 px-4 lg:px-6 py-2 rounded-3xl border-2 border-blue-100 w-full max-w-[250px] text-center";
             const btn = document.getElementById('btn-timer-toggle'); btn.innerHTML = mode === 'study' ? "Start Focus 🌸" : "Start Break ☕"; 
             btn.className = mode === 'study' ? "flex-1 pink-gradient hover:opacity-90 text-white py-4 rounded-2xl font-black text-lg transition-all shadow-md" : "flex-1 bg-blue-500 hover:bg-blue-600 text-white py-4 rounded-2xl font-black text-lg transition-all shadow-md"; 
             document.getElementById('btn-timer-save').classList.add('hidden');
@@ -1467,6 +1467,10 @@
             window.saveState();
             showToast("Roadmap and balances reset. 🎀");
         };
+
+        let currentEditWeek = null;
+        let editingDebtKey = null;
+        let editingStashKey = null;
 
         window.openEditModal = function(event, weekNum) {
             event.stopPropagation(); currentEditWeek = weekNum;
